@@ -174,6 +174,10 @@ export default class ScrollArea extends React.Component {
     }
 
     handleTouchStart(e) {
+        if (this.canScroll()) {
+          return;
+        }
+
         let {touches} = e;
         if (touches.length === 1) {
             let {clientX, clientY} = touches[0];
@@ -188,9 +192,11 @@ export default class ScrollArea extends React.Component {
 
     handleTouchMove(e) {
         if (this.canScroll()) {
-            e.preventDefault();
-            e.stopPropagation();
+          return;
         }
+
+        e.preventDefault();
+        e.stopPropagation();
 
         let {touches} = e;
         if (touches.length === 1) {
@@ -213,6 +219,10 @@ export default class ScrollArea extends React.Component {
     }
 
     handleTouchEnd(e) {
+        if (this.canScroll()) {
+          return;
+        }
+
         let {deltaX, deltaY, timestamp} = this.eventPreviousValues;
         if (typeof deltaX === 'undefined') deltaX = 0;
         if (typeof deltaY === 'undefined') deltaY = 0;
